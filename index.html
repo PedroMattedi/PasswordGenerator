@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="reset.css" class="css">
+    <link rel="stylesheet" href="style.css" class="css">
+</head>
+<body>
+    <main>
+        <section class="hero">
+            <h1 class="title">Gerador de senha</h1>
+            <p class="subtitle">Utilize o nosso gerador online para criar uma senha forte e segura.</p>
+        </section>
+
+        <section class="box">
+            <div class="password">
+                <div class="text">
+                    <input type="text" name="password" id="password" />
+                </div>
+                <div class="actions">
+                    <button onclick="copy()" id="copy"><img src="copy.svg" width="42"></button>
+                    <button onclick="generatePassword()"><img src="renew.svg" width="42"></button>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="box customize">
+            <h3 class="title">Você deseja incluir ao gerador:</h3>\
+            <div class="actions">
+                <div class="config">
+                    <label class="checkbox-container">
+                        <span class="text">Letras Maiúsculas</span>
+                        <input type="checkbox" id="uppercase-check" unchecked />
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        <span class="text">Números</span>
+                        <input type="checkbox" id="number-check" unchecked />
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        <span class="text">Símbolos</span>
+                        <input type="checkbox" id="symbol-check" unchecked />
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+            </div>
+        </section>
+
+    </main>
+    <script>
+        const inputEl = document.getElementById("password")
+
+        const upperCaseChecked = document.getElementById("uppercase-check")
+        const numberChecked = document.getElementById("number-check")
+        const symbolChecked = document.getElementById("symbol-check")
+
+        function generatePassword(){
+            let chars = "abcdefghijklmnopqrstuvwxyz"
+            const upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            const numberChars = "123456789"
+            const symbolChars = ")([]{}*&^%$#@?/!"
+
+
+            if(upperCaseChecked.checked){
+                chars = chars + upperCaseChars
+            }
+
+            if(numberChecked.checked){
+                chars = chars + numberChars
+            }
+
+            if(symbolChecked.checked){
+                chars = chars + symbolChars
+            }
+
+
+            let password = ""
+
+
+            for (i = 0; i < 16; i++){
+                const randomNumber = Math.floor(Math.random() * chars.length)
+                password = password + chars.substring(randomNumber, randomNumber + 1)
+            }
+            inputEl.value = password
+        }
+
+        function copy(){
+            navigator.clipboard.writeText(inputEl.value)
+            const copyButtonEl = document.getElementById("copy")
+        }
+
+    </script>
+</body>
+
+</html>
